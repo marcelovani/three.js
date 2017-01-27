@@ -47,7 +47,7 @@ THREE.CSS3DSprite.prototype.constructor = THREE.CSS3DSprite;
 
 THREE.CSS3DStereoRenderer = function () {
 
-	console.log( 'THREE.CSS3DRenderer', THREE.REVISION );
+	console.log( 'THREE.CSS3DStereoRenderer', THREE.REVISION );
 
 	var _width, _height;
 	var _widthHalf, _heightHalf;
@@ -272,19 +272,18 @@ THREE.CSS3DStereoRenderer = function () {
 			}
 
 			var element = object[ 'element' + camera.name ];
-			var cachedStyle = cache.objects[ object.id ];
+			var cachedStyle = cache.objects[ object.id + camera.name ];
 
-			// @todo re-enable cache (per side)
-			//if ( cachedStyle === undefined || cachedStyle !== style ) {
+			if ( cachedStyle === undefined || cachedStyle !== style ) {
 
 				element.style.WebkitTransform = style;
 				element.style.MozTransform = style;
 				element.style.oTransform = style;
 				element.style.transform = style;
 
-				cache.objects[ object.id ] = style;
+				cache.objects[ object.id + camera.name ] = style;
 
-			//}
+			}
 
 			var currentCamera = switchCamera(camera);
 			if ( element.parentNode !== currentCamera ) {
